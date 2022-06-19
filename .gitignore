@@ -5,13 +5,13 @@ local_forward_proxy_server/node_modules/*
 
 trainline.py
 immo_env.env
-immo_env.py
+constants.py
 apartments.json
 
 deploy.sh
 exclude.txt
 
-immo_env.py
+constants.py
 
 *.pyc
 __pycache__/*

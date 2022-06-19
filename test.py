@@ -1,6 +1,7 @@
-from behavior.sst_utils import *
-import pprint
 import json
+import pprint
+
+from behavior.sst_utils import *
 
 parse_listings = """var res = [];
 document.querySelectorAll(".result-list__listing").forEach((el) => {
