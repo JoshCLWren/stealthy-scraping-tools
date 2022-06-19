@@ -1,7 +1,6 @@
 import time
 import random
-from behavior.behavior import humanMove
-from typing import humanTyping
+from behavior.behavior import humanMove, humanTyping
 from behavior.sst_utils import *
 
 """
@@ -15,8 +14,7 @@ the bash command on Linux `xdotool getmouselocation`
 """
 
 def main():
-  startBrowser('bot.incolumitas.com\n')
-
+  startBrowser('http://bot.incolumitas.com')
   # click link to get to the challenge
   coords = getCoords('li:nth-of-type(3) a')
   print('Clicking on coordinates ' + str(coords))
