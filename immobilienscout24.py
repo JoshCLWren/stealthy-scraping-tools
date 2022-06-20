@@ -2,6 +2,7 @@ import pprint
 import sys
 
 import constants
+
 from behavior.behavior import *
 from behavior.sst_utils import *
 
@@ -14,9 +15,10 @@ Imperva advanced?
 Let's see ;)
 """
 
-# if not os.path.exists("apartments.json"):
-#     with open("apartments.json", "w") as f:
-#         json.dump({"data": []}, f)
+if not os.path.exists("apartments.json"):
+    with open("apartments.json", "w") as f:
+        json.dump({"data": []}, f)
+
 
 apartments = json.load(open("apartments.json", "r"))
 if not apartments:
@@ -40,12 +42,16 @@ def startVNC():
 
 
 def moveRandomly(steps=5):
+
     width, height = get_dim()
+
     width = min(1920, width)
     # this is where the bot check is happening
     # move the mouse a bit
     for i in range(steps):
+
         human_move(
+
             *(random.randrange(0, width - 50), random.randrange(0, height - 50)),
             clicks=0,
             steps=2,
@@ -60,19 +66,24 @@ def contact(listing):
     goto("https://www.immobilienscout24.de" + listing.get("url"))
     moveRandomly(steps=4)
 
+
     already_contacted = get_coords(".is24-icon-heart-Favorite-glyph") is not None
+
+    already_contacted = getCoords(".is24-icon-heart-Favorite-glyph") is not None
+
     if already_contacted:
         print("Listing {} already contacted".format(listing.get("url")))
         return True
 
-    # contact
     contact_button = get_coords("a span.palm-hide.email-button-desk-text.font-standard")
     human_move(*contact_button, clicks=1)
+
     time.sleep(random.uniform(4, 5.5))
 
     # check if message already entered
     already_entered = (
         json.loads(
+
             eval_js(
                 'document.getElementById("contactForm-Message").value.includes("und Langfristiges")'
             )
@@ -144,11 +155,13 @@ def main():
     # startBrowser(args=['--incognito'])
     start_browser(args=[])
 
+
     if os.getenv("DOCKER") == "1":
         # close the annoying chrome error message bar
         # it skews with coordinates
         # x:1903 y:114 screen:0 window:195035139
         # x:1889 y:113 screen:0 window:195035139
+
         human_move(1893, 103)
         human_move(1889, 103)
         time.sleep(random.uniform(2.5, 3.5))
@@ -203,8 +216,8 @@ def main():
             time.sleep(random.uniform(2.25, 3.55))
 
         goto(constants.SEARCH_URL)
-
         human_scroll(8, (5, 20), -1)
+
 
         # finally parse the listings
         parse_listings = """var res = [];

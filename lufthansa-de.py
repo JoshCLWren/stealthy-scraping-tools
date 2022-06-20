@@ -29,8 +29,8 @@ def main():
     if os.getenv("DOCKER") == "1":
         startFluxbox()
         startVNC()
-
     start_browser(args=[])
+
 
     if os.getenv("DOCKER") == "1":
         # close the annoying chrome error message bar
@@ -123,7 +123,6 @@ def main():
         # wait for quite some time
         time.sleep(random.uniform(10, 14))
         human_scroll(2, (5, 20), -1)
-
         try:
             calendar = get_coords("#page .calendarTab")
             if calendar:

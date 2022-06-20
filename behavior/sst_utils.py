@@ -63,6 +63,7 @@ def get_coords(selector, randomize_within_bcr=True):
 
 
 def start_browser(args=None):
+
     if os.getenv("DOCKER") != "1":
         start_cmd = f"{constants.CHROME_PATH} --remote-debugging-port=9222 --start-maximized --disable-notifications"
     if args is None:
@@ -76,5 +77,6 @@ def start_browser(args=None):
         start_cmd = "google-chrome --remote-debugging-port=9222 --no-sandbox --disable-notifications --start-maximized --no-first-run --no-default-browser-check & --disable-dev-shm-usage"
         # startCmd = 'google-chrome --remote-debugging-port=9222 --no-sandbox --disable-notifications --start-maximized --no-first-run --no-default-browser-check --incognito &'
     start_cmd += f" {args}"
+
     os.system(start_cmd)
     time.sleep(random.uniform(4, 5))

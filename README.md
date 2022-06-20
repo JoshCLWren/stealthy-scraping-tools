@@ -91,3 +91,4 @@ docker run --cap-add=NET_ADMIN --network="host" --shm-size=2g sst:0.0.1
 + Look at Kernel/OS level mouse/keyboard control commands (Ditch `pyautogui`)
 + Use the math from [ghost-cursor](https://github.com/Xetera/ghost-cursor)
 + Create a set of typing recordings and use it to derive rules for bot writing
+

@@ -1,3 +1,8 @@
+import random
+import time
+
+from pyautogui import press, typewrite
+
 from behavior.behavior import human_move, human_typing
 from behavior.sst_utils import *
 
@@ -10,7 +15,6 @@ left screen.
 You can obtain the coordinates of your current mouse pointer with 
 the bash command on Linux `xdotool getmouselocation`
 """
-
 
 def main():
     start_browser("bot.incolumitas.com\n")
