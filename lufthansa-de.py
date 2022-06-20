@@ -1,14 +1,7 @@
 import random
 import time
 
-from behavior.behavior import (
-    clickNormal,
-    humanMove,
-    humanScroll,
-    press,
-    typeNormal,
-    typeWrite,
-)
+from behavior.behavior import *
 from behavior.sst_utils import *
 
 """
@@ -36,16 +29,16 @@ def main():
     if os.getenv("DOCKER") == "1":
         startFluxbox()
         startVNC()
+    start_browser(args=[])
 
-    startBrowser(args=[])
 
     if os.getenv("DOCKER") == "1":
         # close the annoying chrome error message bar
         # it skews with coordinates
         # x:1903 y:114 screen:0 window:195035139
         # x:1889 y:113 screen:0 window:195035139
-        humanMove(1893, 103)
-        humanMove(1889, 103)
+        human_move(1893, 103)
+        human_move(1889, 103)
         time.sleep(random.uniform(2.5, 3.5))
 
     for i in range(150):
@@ -58,20 +51,20 @@ def main():
         # accept cookies?
         if i == 0:
             try:
-                cookie_accept = getCoords("#cm-acceptAll")
+                cookie_accept = get_coords("#cm-acceptAll")
                 if cookie_accept:
-                    humanMove(*cookie_accept, clicks=1)
+                    human_move(*cookie_accept, clicks=1)
                     time.sleep(random.uniform(0.25, 1.25))
             except Exception as e:
                 print("No cookies to accept, #cm-acceptAll not found")
 
         # enter where to go
         try:
-            input_loc = getCoords('input[placeholder="Nach"]')
+            input_loc = get_coords('input[placeholder="Nach"]')
             print("Enter Departure " + str(input_loc))
-            humanMove(*input_loc, clicks=2)
+            human_move(*input_loc, clicks=2)
             time.sleep(random.uniform(0.25, 1.25))
-            typeNormal(
+            type_normal(
                 random.choice(
                     [
                         "Berlin",
@@ -95,16 +88,16 @@ def main():
 
         # input return date
         try:
-            backdate = getCoords('input[placeholder="Rückflugdatum"]')
+            backdate = get_coords('input[placeholder="Rückflugdatum"]')
             print("backdate " + str(backdate))
-            humanMove(*backdate, clicks=1)
+            human_move(*backdate, clicks=1)
             time.sleep(random.uniform(4.55, 5.55))
         except Exception as e:
             print(f"[{i}] Could not click on return value. Leaving untouched.")
 
         # enter departure date
         try:
-            datetile = getCoords(
+            datetile = get_coords(
                 random.choice(
                     [
                         '[aria-label^="Choose Samstag, 25 Dezember 2021"]',
@@ -113,26 +106,25 @@ def main():
                 )
             )
             print("datetile " + str(datetile))
-            humanMove(*datetile, clicks=1)
+            human_move(*datetile, clicks=1)
             time.sleep(random.uniform(2.25, 3.25))
         except Exception as e:
             print(f"[{i}] Could not select return date. Keeping default value.")
 
         # submit
         try:
-            submit = getCoords('[type="submit"]')
+            submit = get_coords('[type="submit"]')
             print("Submit " + str(submit))
-            humanMove(*submit)
+            human_move(*submit)
         except Exception as e:
             print(f"[{i}] Could not submit search. Blocked?")
             continue
 
         # wait for quite some time
         time.sleep(random.uniform(10, 14))
-        humanScroll(2, (5, 20), -1)
-
+        human_scroll(2, (5, 20), -1)
         try:
-            calendar = getCoords("#page .calendarTab")
+            calendar = get_coords("#page .calendarTab")
             if calendar:
                 print(f"[{i}] Flight Results loaded!")
         except Exception as e:

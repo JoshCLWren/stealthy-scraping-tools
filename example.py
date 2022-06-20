@@ -16,13 +16,8 @@ You can obtain the coordinates of your current mouse pointer with
 the bash command on Linux `xdotool getmouselocation`
 """
 
-
 def main():
-    start_browser("http://bot.incolumitas.com")
-    # humanMove(333, 88)
-    # typewrite("http://bot.incolumitas.com")
-    # press('enter')
-    # click link to get to the challenge
+    start_browser("bot.incolumitas.com\n")
     coords = get_coords("li:nth-of-type(3) a")
     print(f"Clicking on coordinates {str(coords)}")
     human_move(*coords)

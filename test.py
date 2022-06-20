@@ -23,5 +23,6 @@ if (title) {
 });
 JSON.stringify(res);"""
 
-listings = evalJS(parse_listings)
+
+listings = eval_js(parse_listings)
 pprint.pprint(json.loads(listings))
